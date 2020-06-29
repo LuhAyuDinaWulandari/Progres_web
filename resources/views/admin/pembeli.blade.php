@@ -29,9 +29,9 @@
                     <tr>
                         <th class="text-center">Nomor</th>
                         <th class="text-center">Nama</th>
-                        <th class="text-center">No. Handphone</th>
-                        <th class="text-center">Jumlah Saldo</th>
-                        <th class="text-center">Kode Transaksi</th>
+                        <th class="text-center">No. Hp</th>
+                        <th class="text-center">Saldo</th>
+                        <th class="text-center">ID Transaksi</th>
                         <th class="text-center">Opsi</th>
                     </tr>
                 </thead>
@@ -43,7 +43,7 @@
                     <td class="text-center">{{$val->no_hp}}</td>
                     <td class="text-center">{{$val->saldo}}</td>
                     <td class="text-center">{{$val->id_transaksi}}</td>
-                    <td class="text-center">
+                    <td>
                         <a href="{{route('pembeli.edit',$val->id_pembeli)}}" class="btn btn-warning btn-xs">Update</a>
                         <form action="{{route('pembeli.destroy',$val->id_pembeli)}}" method="POST">
                             @csrf

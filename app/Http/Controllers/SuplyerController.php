@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use\App\Suplyer;
+
+use App\Suplyer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SuplyerController extends Controller
 {
@@ -12,11 +14,11 @@ class SuplyerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
-        $title='Suplyer | CP';
-        $suplyer=Suplyer::all();
-        //dd($suplyer);
+        $title='Home | CP';
+        $suplyer=Suplyer::paginate(5);
         return view('admin.suplyer', compact('title', 'suplyer'));
     }
 
@@ -27,7 +29,9 @@ class SuplyerController extends Controller
      */
     public function create()
     {
-        //
+        $title='Input Pembeli | CP';
+        return view('admin.inputsuplyer', compact('title'));
+
     }
 
     /**
@@ -38,18 +42,18 @@ class SuplyerController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
+        $messages=[
             'required'  => 'Kolom:atribute harus lengkap',
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
         $validasi = $request->validate([
             'nama_suplyer'      => 'required',
-            'alamat_suplyer'    => '',
-            'no_hp'             => '',
+            'alamat_suplyer'    => 'required',
+            'no_hp'             => 'required',
         ],$messages);
         Suplyer::create($validasi);
-        return redirect('suplyer')->with('success', 'Data berhasil di update');
+        return redirect('suplyer')->with('succses','Data berhasil diupdate'); 
     }
 
     /**
@@ -69,11 +73,13 @@ class SuplyerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
-        $title='Input Suplyer | CP';
+        $title='Input Pembeli | CP';
         $suplyer=Suplyer::find($id);
-        return view('admin.inputsuplyer', compact('title','suplyers'));
+        return view('admin.inputsuplyer', compact('title'));
+
     }
 
     /**
@@ -85,18 +91,18 @@ class SuplyerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $messages = [
+        $messages=[
             'required'  => 'Kolom:atribute harus lengkap',
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
         $validasi = $request->validate([
             'nama_suplyer'      => 'required',
-            'alamat_suplyer'    => '',
-            'no_hp'             => '',
+            'alamat_suplyer'    => 'required',
+            'no_hp'             => 'required',
         ],$messages);
         Suplyer::whereid_suplyer($id)->update($validasi);
-        return redirect('suplyer')->with('success', 'Data berhasil di update');
+        return redirect('suplyer')->with('succses','Data berhasil diupdate'); 
     }
 
     /**
@@ -108,6 +114,6 @@ class SuplyerController extends Controller
     public function destroy($id)
     {
         Suplyer::whereid_suplyer($id)->delete();
-        return redirect('suplyer')->with('success', 'Data berhasil di Hapus');
+        return redirect('suplyer')->with('succses','Data berhasil didelete'); 
     }
 }

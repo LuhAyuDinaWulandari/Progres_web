@@ -1,5 +1,4 @@
-@extends('layout.inputtemp')
-
+@extends('layout.template')
 @section('content')
 
 <div class="panel">
@@ -17,22 +16,27 @@
             @if(isset($penjual))?@method('PUT')@endif
             <div class="panel-body">
                     <form>
-                      <div class="form-group">
-                       
-                        <label class="form-control-label col-lg-2">Id Pembeli</label>
-                        <div class="col-lg-10"></div> 
-                        <input type="text" value="{{(isset($penjual))?$penjual->id_penjual:old('id_penjual')}}" name="id_penjual" class="form-control"></div>
-                        @error('id_penjual')<small style="color:red">{{$message}}</small> @enderror
-                      </div>
                       <div class="form-group"> 
-                        <label class="control-label col-lg-2">Nama Pembeli</label>
+                        <label class="control-label col-lg-2">Id Penjual</label>
                         <div class="col-lg-10"></div>
-                        <input type="text" value="{{(isset($penjual))?$penjual->nama_penjual:old('nama_penjual')}}" name="nama_penjual" class="form-control"></div>
-                        @error('nama_penjual') <small style="color:red">{{$message}}</small> @enderror
+                        <input type="text" value="{{(isset($penjual))?$penjual->id_penjual:old('id_penjual')}}" name="id_penjual" class="form-control"></div>
+                        @error('id_penjual') <small style="color:red">{{$message}}</small> @enderror
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label col-lg-2">Id Transaksi</label>
+                        <div class="col-lg-10"></div> 
+                        <input type="text" value="{{(isset($penjual))?$penjual->id_transaksi:old('id_transaksi')}}" name="id_transaksi" class="form-control"></div>
+                        @error('id_transaksi')<small style="color:red">{{$message}}</small> @enderror
                       </div>
                       <div class="form-group">   
-                        <label class="control-label col-lg-2">Alamat </label>
+                        <label class="control-label col-lg-2">Nama Penjual </label>
                         <div class="col-lg-10"></div>  
+                        <input type="text" value="{{(isset($penjual))?$penjual->nama_penjual:old('nama_penjual')}}" name="nama_penjual" class="form-control"></div>
+                        @error('nama_penjual')<small style="color:red">{{$message}}</small> @enderror
+                      </div>
+                      <div class="form-group">     
+                        <label class="control-label col-lg-2">Alamat Penjual</label>
+                        <div class="col-lg-10"></div>    
                         <input type="text" value="{{(isset($penjual))?$penjual->alamat_penjual:old('alamat_penjual')}}" name="alamat_penjual" class="form-control"></div>
                         @error('alamat_penjual') <small style="color:red">{{$message}}</small> @enderror
                       </div>
@@ -41,8 +45,6 @@
                         <div class="col-lg-10"></div>    
                         <input type="text" value="{{(isset($penjual))?$penjual->no_hp:old('no_hp')}}" name="no_hp" class="form-control"></div>
                         @error('no_hp') <small style="color:red">{{$message}}</small> @enderror
-                      </div>
-                      <div class="form-group">     
                       </div>
                       <div class="form-group"> 
                       <div class="col-lg-12"></div>      

@@ -19,7 +19,7 @@
                                                 <div class="panel-body">
                                                     <p style="line-height: 40px;">
                                                         Nama &nbsp;         : Putu Devi Santini & Luh Ayu Dina Wulandari <br>
-                                                        NIM  &nbsp;         : 1815051017 & 1815051017<br>
+                                                        NIM  &nbsp;         : 1815051017 & 1815051111<br>
                                                         Program Studi &nbsp;: Pendidikan Teknik Informatika
                                                     </p>
                                                 </div>

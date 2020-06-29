@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PembayaranController extends Controller
 {
@@ -12,10 +14,11 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $title='Home | CP';
-        $pembayaran=Pembayaran::paginate(10);
+        $pembayaran=Pembayaran::paginate(5);
         return view('admin.pembayaran', compact('title', 'pembayaran'));
     }
 
@@ -26,8 +29,9 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        $title='Home | CP';
-        return view('admin.pembayaran', compact('title'));
+        $title='Input Pembeli | CP';
+        return view('admin.inputpembayaran', compact('title'));
+
     }
 
     /**
@@ -43,14 +47,14 @@ class PembayaranController extends Controller
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
-        $validasi=$request->validate([
+        $validasi = $request->validate([
             'id_penjual'        => 'required',
-            'id_pembayaran'        => '',
-            'jenis_pembayaran'  => '',
-            'keterangan'        => '',
+            'id_pembeli'        => 'required',
+            'jenis_pembayaran'  => 'required',
+            'keterangan'        => 'required',
         ],$messages);
-        Penjual::create($validasi);
-        return redirect('penjual')->with('succses','Data berhasil diupdate'); 
+        Pembayaran::create($validasi);
+        return redirect('pembayaran')->with('succses','Data berhasil diupdate'); 
     }
 
     /**
@@ -70,11 +74,13 @@ class PembayaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function edit($id)
     {
         $title='Input Pembeli | CP';
-        $penjual=Penjual::find(id);
+        $pembayaran=Pembayaran::find($id);
         return view('admin.inputpembayaran', compact('title'));
+
     }
 
     /**
@@ -86,19 +92,19 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $messages = [
+        $messages=[
             'required'  => 'Kolom:atribute harus lengkap',
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
         $validasi = $request->validate([
-            'nama_pembeli' => 'required',
-            'no_hp'        => '',
-            'saldo'        => '',
-            'id_transaksi' => 'required',
+            'id_penjual'        => 'required',
+            'id_pembeli'        => 'required',
+            'jenis_pembayaran'  => 'required',
+            'keterangan'        => 'required',
         ],$messages);
         Pembayaran::whereid_pembayaran($id)->update($validasi);
-        return redirect('pembeli')->with('success', 'Data berhasil di update');
+        return redirect('pembayaran')->with('succses','Data berhasil diupdate'); 
     }
 
     /**
@@ -110,6 +116,6 @@ class PembayaranController extends Controller
     public function destroy($id)
     {
         Pembayaran::whereid_pembayaran($id)->delete();
-        return redirect('pembeli')->with('success', 'Data berhasil di Hapus');
+        return redirect('pembayaran')->with('succses','Data berhasil didelete'); 
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Pembeli;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PembeliController extends Controller
 {
@@ -12,9 +14,10 @@ class PembeliController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $title='Pembeli | CP';
+        $title='Home | CP';
         $pembeli=Pembeli::paginate(10);
         return view('admin.pembeli', compact('title', 'pembeli'));
     }
@@ -38,19 +41,19 @@ class PembeliController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
+        $messages=[
             'required'  => 'Kolom:atribute harus lengkap',
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
         $validasi = $request->validate([
-            'nama_penjual' => 'required',
-            'no_hp'        => '',
-            'saldo'        => '',
-            'id_transaksi' => 'required',
+            'nama_pembeli'    => 'required',
+            'no_hp'           => 'required',
+            'saldo'           => 'required',
+            'id_transaksi'    => 'required',
         ],$messages);
         Pembeli::create($validasi);
-        return redirect('pembeli')->with('success', 'Data berhasil di update');
+        return redirect('pembeli')->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -86,19 +89,19 @@ class PembeliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $messages = [
+        $messages=[
             'required'  => 'Kolom:atribute harus lengkap',
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
         $validasi = $request->validate([
-            'nama_pembeli' => 'required',
-            'no_hp'        => '',
-            'saldo'        => '',
-            'id_transaksi' => 'required',
+            'nama_pembeli'   => 'required',
+            'no_hp'          => 'required',
+            'saldo'          => 'required',
+            'id_transaksi'   => 'required',
         ],$messages);
         Pembeli::whereid_pembeli($id)->update($validasi);
-        return redirect('pembeli')->with('success', 'Data berhasil di update');
+        return redirect('pembeli')->with('success', 'Data berhasil diupdate');
     }
 
     /**
@@ -110,6 +113,6 @@ class PembeliController extends Controller
     public function destroy($id)
     {
         Pembeli::whereid_pembeli($id)->delete();
-        return redirect('pembeli')->with('success', 'Data berhasil di Hapus');
+        return redirect('pembeli')->with('success', 'Data berhasil didelete');
     }
 }

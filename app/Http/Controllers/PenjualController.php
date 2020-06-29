@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Penjual;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PenjualController extends Controller
 {
@@ -46,11 +47,12 @@ class PenjualController extends Controller
             'date'      => 'Kolom:atribute harus Lengkap',
             'numeric'   => 'Kolom:atribute harus Lengkap',
         ];
-        $validasi=$request->validate([
+        $validasi = $request->validate([
             'id_penjual'        => 'required',
-            'nama_penjual'      => '',
-            'alamat_penjual'    => '',
-            'no_hp'             => '',
+            'id_transaksi'      => 'required',
+            'nama_penjual'      => 'required',
+            'alamat_penjual'    => 'required',
+            'no_hp'             => 'required',
         ],$messages);
         Penjual::create($validasi);
         return redirect('penjual')->with('succses','Data berhasil diupdate'); 
@@ -77,7 +79,7 @@ class PenjualController extends Controller
     public function edit($id)
     {
         $title='Input Pembeli | CP';
-        $penjual=Penjual::find(id);
+        $penjual=Penjual::find($id);
         return view('admin.inputpenjual', compact('title'));
 
     }
@@ -91,7 +93,20 @@ class PenjualController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $messages=[
+            'required'  => 'Kolom:atribute harus lengkap',
+            'date'      => 'Kolom:atribute harus Lengkap',
+            'numeric'   => 'Kolom:atribute harus Lengkap',
+        ];
+        $validasi = $request->validate([
+            'id_penjual'        => 'required',
+            'id_transaksi'      => 'required',
+            'nama_penjual'      => 'required',
+            'alamat_penjual'    => 'required',
+            'no_hp'             => 'required',
+        ],$messages);
+        Penjual::whereid_penjual($id)->update($validasi);
+        return redirect('penjual')->with('succses','Data berhasil diupdate'); 
     }
 
     /**
@@ -102,6 +117,7 @@ class PenjualController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Penjual::whereid_penjual($id)->delete();
+        return redirect('penjual')->with('succses','Data berhasil didelete'); 
     }
 }

@@ -5,7 +5,7 @@
         <small>Data Penjual</small>
         <div class="pull-right">
             <a href="" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-refresh"></i></a>
-            <a href="{{route('penjual.create')}}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus">Tambah Data penjual</i></a>
+            <a href="{{route('penjual.create')}}" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus">Tambah Data Penjual</i></a>
         </div>
     </h4>
     <div style="margin-bottom: 20px;">
@@ -23,7 +23,8 @@
     <table class="table table-bordered">
                 <tr>
                     <th class="text-center">No</th>
-                    <th class="text-center">Kode Penjual</th>
+                    <th class="text-center">ID Penjual</th>
+                    <th class="text-center">ID Transaksi</th>
                     <th class="text-center">Nama</th>
                     <th class="text-center">Alamat</th>
                     <th class="text-center">No. Hp</th>
@@ -35,6 +36,7 @@
                <tr>
                    <td class="text-center">{{($in+1)}}</td>
                    <td class="text-center">{{$val->id_penjual}}</td>
+                   <td class="text-center">{{$val->id_transaksi}}</td>
                    <td class="text-center">{{$val->nama_penjual}}</td>
                    <td class="text-center">{{$val->alamat_penjual}}</td>
                    <td class="text-center">{{$val->no_hp}}</td>
